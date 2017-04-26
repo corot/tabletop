@@ -179,6 +179,7 @@ struct TableVisualizationMsgAssembler {
                    "The clusters on top of the table.").required(true);
     inputs.declare(&TableVisualizationMsgAssembler::image_message_,
                    "image_message", "the image message to get the header").required(true);
+//                   "depth_message", "the image message to get the header").required(true);
 
     outputs.declare<visualization_msgs::MarkerArrayConstPtr>(
       "marker_array_clusters", "The markers of the clusters");

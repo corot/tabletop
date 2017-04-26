@@ -30,6 +30,7 @@ class TablePublisher(ecto.BlackBox, SinkBase):
                 'table_visualization_msg_assembler': CellInfo(TableVisualizationMsgAssembler),
                 'marker_array_clusters': CellInfo(MarkerArrayPub),
                 'table_array': CellInfo(Publisher_TableArray),
+#                'passthrough': ecto.PassthroughN(items=dict(depth_message='The original imagemessage',
                 'passthrough': ecto.PassthroughN(items=dict(image_message='The original imagemessage',
                                                         pose_results='The final results'))
                 }
@@ -49,6 +50,7 @@ class TablePublisher(ecto.BlackBox, SinkBase):
         i = {'table_msg_assembler': [Forward('clouds_hull')],
              'table_visualization_msg_assembler': [Forward('clusters3d') ],
              'passthrough': [Forward('image_message'), Forward('pose_results')]}
+#             'passthrough': [Forward('depth_message'), Forward('pose_results')]}
 
         return (p,i,{})
 
@@ -57,6 +59,10 @@ class TablePublisher(ecto.BlackBox, SinkBase):
                                                 self.table_msg_assembler['image_message','pose_results'],
                        self.passthrough['image_message'] >>
                                                 self.table_visualization_msg_assembler['image_message'] ]
+#        connections = [self.passthrough['depth_message','pose_results'] >>
+#                                                self.table_msg_assembler['depth_message','pose_results'],
+#                       self.passthrough['depth_message'] >>
+#                                                self.table_visualization_msg_assembler['depth_message'] ]
 
         connections += [ self.table_msg_assembler['table_array_msg'] >> self.table_array[:] ]
         connections += [self.table_visualization_msg_assembler['marker_array_clusters'] >> self.marker_array_clusters[:] ]

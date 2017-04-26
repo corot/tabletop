@@ -63,6 +63,7 @@ using ecto::tendrils;
 struct TableMsgAssembler {
   static void
   declare_io(const tendrils& params, tendrils& inputs, tendrils& outputs) {
+//    inputs.declare(&TableMsgAssembler::image_message_, "depth_message", "the image message to get the header").required(
     inputs.declare(&TableMsgAssembler::image_message_, "image_message", "the image message to get the header").required(
       true);
     inputs.declare(&TableMsgAssembler::pose_results_, "pose_results", "The results of object recognition").required(
